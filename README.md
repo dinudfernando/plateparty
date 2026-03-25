@@ -2,8 +2,9 @@
 
 University Game Project for CS196
 
-Status: **Planning**
+Status: **In Development**
 
 To Do:
-1. Create Assets & Background Tiles
-2. 
+1. Create Sprites, Assets & Background Tiles
+2. Run 2D Physics simulations with dummies with Keybinds
+3. 
