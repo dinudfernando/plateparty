@@ -5,4 +5,5 @@ University Game Project for CS196
 Status: **Planning**
 
 To Do:
-1. 
+1. Create Assets & Tiles
+2. 
