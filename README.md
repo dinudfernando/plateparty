@@ -1,5 +1,5 @@
 # Plate Party
-![Plate Party Logo] ./src/
+![Plate Party Logo] (./src/assets/plate_party_logo.png)
 University Game Project for CS196
 
 Status: **In Development**
