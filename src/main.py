@@ -18,6 +18,7 @@ def get_asset_path(filename: str) -> str:
     return os.path.join(GAME_PATH, "assets", filename)
 
 class GameView(arcade.View):
+    
     def __init__(self):
         super().__init__()
 
@@ -60,7 +61,8 @@ class GameView(arcade.View):
         self.pete_list = arcade.SpriteList()
         self.pete = arcade.Sprite(get_asset_path(get_asset_path("pete_neutral.png")), scale=0.3)
         self.pete.center_x = self.window.width//2 
-        self.pete.bottom = 40
+        self.ground_y = int(self.window.height*0.39)
+        self.pete.bottom = self.ground_y
         self.pete_list.append(self.pete)
         self.movement_speed = 5
         
