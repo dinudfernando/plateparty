@@ -22,7 +22,12 @@ class GameView(arcade.View):
         super().__init__()
 
         self.manager = agui.UIManager()
-        self.background = arcade.load_texture(get_asset_path("menu_bg.png"))
+        self.background = arcade.load_texture(get_asset_path("bg.png"))
+        self.croissant_count = 0
+
+        croissant_texture = arcade.load_texture(get_asset_path("croissant.png"))
+        settings_icon = arcade.load_texture("settings_icon.png")
+        settings_icon_dark = arcade.load_texture("settings_icon_dark")
     
     def on_show_view(self):
         '''Runs upon showing this view'''
@@ -96,7 +101,7 @@ class MainMenuUI(arcade.View):
         self.v_box = agui.UIBoxLayout(space_between=10)
 
         #Background
-        self.background = arcade.load_texture(get_asset_path("menu_bg.png"))
+        self.background = arcade.load_texture(get_asset_path("bg.png"))
 
         #Game Logo
         game_logo_texture = arcade.load_texture(get_asset_path("plate_party_logo.png"))
