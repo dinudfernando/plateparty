@@ -54,13 +54,12 @@ class GameView(arcade.View):
     def on_click_settings(self, event):
         print("settings opened")
 
-    def close_settings():
+    def close_settings(self, event):
         print("settings closed")
 
 
     def on_show_view(self):
         '''Runs upon showing this view'''
-        arcade.set_background_color(arcade.color.DARK_BLUE_GRAY)
         self.manager.enable()
 
     def on_hide_view(self):
@@ -77,9 +76,6 @@ class GameView(arcade.View):
         )
 
         self.manager.draw()
-
-
-
 
 
 class MainMenuUI(arcade.View):
@@ -170,7 +166,6 @@ class MainMenuUI(arcade.View):
 
     def on_show_view(self):
         '''Runs upon showing this view'''
-        arcade.set_background_color(arcade.color.DARK_BLUE_GRAY)
         self.manager.enable()
 
     def on_hide_view(self):
