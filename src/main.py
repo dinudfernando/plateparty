@@ -20,30 +20,30 @@ def get_asset_path(filename: str) -> str:
 
 class MainMenuUI(arcade.View):
     '''Main Menu for the game.'''
-
+    arcade.load_font(get_asset_path("PressStart2P-Regular.ttf"))
     menu_button_styling = {
         "normal": agui.UIFlatButton.UIStyle(
-            font_size=18,
-            font_name="Silkscreen",
+            font_size=10,
+            font_name="Press Start 2P",
             font_color= arcade.color.WHITE,
             bg=arcade.color.BLUE_GRAY,
 
         ),
         "hover": agui.UIFlatButton.UIStyle(
-            font_size=18,
+            font_size=10,
             font_name="Press Start 2P",
             font_color= arcade.color.WHITE,
             bg=arcade.color.DARK_BLUE_GRAY,
         ),
         "press": agui.UIFlatButton.UIStyle(
-            font_size=18,
+            font_size=10,
             font_name="Press Start 2P",
             font_color= arcade.color.LIGHT_GRAY,
             bg=arcade.color.PRUSSIAN_BLUE,
 
         ),
         "disabled": agui.UIFlatButton.UIStyle(
-            font_size=18,
+            font_size=10,
             font_name="Press Start 2P",
             font_color= arcade.color.GRAY,
             bg=arcade.color.DARK_SLATE_GRAY,
