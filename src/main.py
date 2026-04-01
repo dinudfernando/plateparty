@@ -59,8 +59,9 @@ class GameView(arcade.View):
         # Pete Sprite
         self.pete_list = arcade.SpriteList()
         self.pete = arcade.Sprite(get_asset_path(get_asset_path("pete_neutral.png")), scale=1.0)
-        self.pete.center_x = 60
+        self.pete.center_x = self.window.width//2 
         self.pete.bottom = 40
+        self.pete.scale = 0.3
         self.pete_list.append(self.pete)
         self.movement_speed = 5
         
