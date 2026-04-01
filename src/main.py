@@ -42,7 +42,11 @@ class GameView(arcade.View):
         layout_left.add(self.croissant_icon)
         layout_left.add(self.croissant_label)
 
-        self.settings_button.on
+        self.settings_button = agui.UITextureButton(
+            texture=settings_icon,
+            texture_hovered=settings_icon_dark,
+            
+        )
     def on_show_view(self):
         '''Runs upon showing this view'''
         arcade.set_background_color(arcade.color.DARK_BLUE_GRAY)
