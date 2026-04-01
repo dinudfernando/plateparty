@@ -3,6 +3,7 @@
 import os
 import arcade
 import arcade.gui as agui
+import random
 
 #GLOBAL VARS
 
@@ -65,9 +66,10 @@ class GameView(arcade.View):
         self.pete.bottom = self.ground_y
         self.pete_list.append(self.pete)
         self.movement_speed = 5
-        
-        
 
+
+        self.plate_list = arcade.SpriteList()
+        self.plate_speed_x, self.plate_speed_y = 4, -2
 
 
     def on_click_settings(self, event):
@@ -107,14 +109,36 @@ class GameView(arcade.View):
     
 
     def on_key_press(self, key, modifiers):
+        #Key Movement
         if key == arcade.key.LEFT or key == arcade.key.A:
             self.pete.change_x = -1*(self.movement_speed)
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.pete.change_x = self.movement_speed
     
     def on_key_release(self, key, modifiers):
+        #To make sure sprite stops
         if key in (arcade.key.LEFT, arcade.key.A, arcade.key.RIGHT, arcade.key.D):
             self.pete.change_x = 0
+
+    #Plate Mechanics
+    def spawn_plate(self):
+        if len(self.plate_list) > 0:
+            return
+        
+        plate = arcade.Sprite(get_asset_path("plate.png"), scale=0.2)
+        from_left_side = random.choice([True,False])
+        if from_left_side:
+            plate.center_x = -50
+            plate.change_x = self.plate_speed_x
+        else:
+            plate.center_x = self.window.width + 50
+            plate.center_x = self.plate_speed_x
+        
+        plate.center_y = self.window.height - 120
+        plate.change_y = self.plate_speed_y
+        
+        self.plate_list.append(plate)
+
 
 
 class MainMenuUI(arcade.View):
