@@ -105,7 +105,7 @@ class GameView(arcade.View):
     
 
     def on_key_press(self, key, modifiers):
-        if key == arcade.key.LEFT or arcade.key.A:
+        if key == arcade.key.LEFT or key == arcade.key.A:
             self.pete.change_x = -1*(self.movement_speed)
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.pete.change_x = self.movement_speed
