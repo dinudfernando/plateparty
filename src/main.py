@@ -28,6 +28,9 @@ class GameView(arcade.View):
         croissant_texture = arcade.load_texture(get_asset_path("croissant.png"))
         settings_icon = arcade.load_texture("settings_icon.png")
         settings_icon_dark = arcade.load_texture("settings_icon_dark")
+
+        self.croissant_icon = agui.UIImage(texture=croissant_texture, width=64, height=64)
+        
     
     def on_show_view(self):
         '''Runs upon showing this view'''
