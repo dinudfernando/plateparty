@@ -51,6 +51,11 @@ class GameView(arcade.View):
 
         self.settings_button.on_click = self.on_click_settings
 
+
+        # Anchoring to UI Manager
+        anchor = agui.UIAnchorLayout()
+        anchor.add(child=layout_left, anchor_x="left", anchor_y="")
+
     def on_click_settings(self, event):
         print("settings opened")
 
