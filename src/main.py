@@ -54,8 +54,8 @@ class GameView(arcade.View):
 
         # Anchoring to UI Manager
         anchor = agui.UIAnchorLayout()
-        anchor.add(child=layout_left, anchor_x="left", anchor_y="top", align_x=20, align_y=20)
-        anchor.add(child=self.settings_button, anchor_x="right", anchor_y="top", align_x=20, align_y=20)
+        anchor.add(child=layout_left, anchor_x="left", anchor_y="top", align_x=0, align_y=0)
+        anchor.add(child=self.settings_button, anchor_x="right", anchor_y="top", align_x=0, align_y=0)
         self.manager.add(anchor)
 
     def on_click_settings(self, event):
