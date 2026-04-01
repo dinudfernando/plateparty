@@ -6,8 +6,8 @@ import arcade.gui as agui
 
 #GLOBAL VARS
 
-SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 360
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Plate Party"
 
 
