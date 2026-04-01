@@ -101,8 +101,17 @@ class GameView(arcade.View):
 
     def on_update(self, delta):
         self.pete_list.update()
+        self.plate_list.update()
     
-    #Movement Bounds
+        if len(self.plate_list) == 0:
+            self.spawn_plate()
+        
+        # Movement Bounds for Plates
+        for plate in self.plate_list:
+            if plate.right <0 or plate.left > self.window.width or plate.bottom < 0:
+                plate.remove_from_sprite_lists()
+        
+        #Movement Bounds for Pete
         if self.pete.left <0:
             self.pete.left = 0
         if self.pete.right > self.window.width:
