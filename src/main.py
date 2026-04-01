@@ -17,6 +17,36 @@ def get_asset_path(filename: str) -> str:
     '''Returns the path to an asset file, given its filename.'''
     return os.path.join(GAME_PATH, "assets", filename)
 
+class GameView(arcade.View):
+    def __init__(self):
+        super().__init__()
+
+        self.manager = agui.UIManager()
+        self.background = arcade.load_texture(get_asset_path("menu_bg.png"))
+    
+    def on_show_view(self):
+        '''Runs upon showing this view'''
+        arcade.set_background_color(arcade.color.DARK_BLUE_GRAY)
+        self.manager.enable()
+
+    def on_hide_view(self):
+        '''Runs upon hiding this view'''
+        self.manager.disable()
+
+    def on_draw(self):
+        '''Runs every time the screen is rendered'''
+        self.clear()
+
+        arcade.draw_texture_rect(
+            self.background,
+            rect=arcade.LBWH(0, 0, self.window.width, self.window.height)
+        )
+
+        self.manager.draw()
+
+
+
+
 
 class MainMenuUI(arcade.View):
     '''Main Menu for the game.'''
@@ -79,6 +109,12 @@ class MainMenuUI(arcade.View):
         quit_button = agui.UIFlatButton(text="Quit", width=175, height= 30, style=self.menu_button_styling)
        
         # Menu Button Methods
+        @play_button.event("onclick")
+
+        def on_click_play(e):
+            game_view = GameView()
+            self.window.show_view(game_view)
+
         
 
 
@@ -118,33 +154,6 @@ class MainMenuUI(arcade.View):
 
         self.manager.draw()
 
-
-class GameView(arcade.View):
-    def __init__(self):
-        super().__init__()
-        
-        self.manager = agui.UIManager()
-        self.background = arcade.load_texture(get_asset_path("menu_bg.png"))
-    
-    def on_show_view(self):
-        '''Runs upon showing this view'''
-        arcade.set_background_color(arcade.color.DARK_BLUE_GRAY)
-        self.manager.enable()
-
-    def on_hide_view(self):
-        '''Runs upon hiding this view'''
-        self.manager.disable()
-
-    def on_draw(self):
-        '''Runs every time the screen is rendered'''
-        self.clear()
-
-        arcade.draw_texture_rect(
-            self.background,
-            rect=arcade.LBWH(0, 0, self.window.width, self.window.height)
-        )
-
-        self.manager.draw()
 
 
 def main():
