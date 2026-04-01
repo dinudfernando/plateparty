@@ -25,12 +25,11 @@ class GameView(arcade.View):
         self.background = arcade.load_texture(get_asset_path("bg.png"))
         self.croissant_count = 0
 
+        #Textures: Croissant & Settings icons
         croissant_texture = arcade.load_texture(get_asset_path("croissant.png"))
         settings_icon = arcade.load_texture(get_asset_path("settings_icon.png"))
         settings_icon_dark = arcade.load_texture(get_asset_path("settings_icon_dark.png"))
-
         self.croissant_icon = agui.UIImage(texture=croissant_texture, width=64, height=64)
-
         self.croissant_label = agui.UILabel(
             text=f"X {self.croissant_count}",
             font_size=18,
@@ -38,6 +37,7 @@ class GameView(arcade.View):
             text_color=arcade.color.WHITE
         )
 
+        # Icon & Label to a layout
         layout_left = agui.UIBoxLayout(vertical=False, space_between=8)
         layout_left.add(self.croissant_icon)
         layout_left.add(self.croissant_label)
@@ -48,15 +48,25 @@ class GameView(arcade.View):
             width=64,
             height=64
         )
-
         self.settings_button.on_click = self.on_click_settings
-
 
         # Anchoring to UI Manager
         anchor = agui.UIAnchorLayout()
         anchor.add(child=layout_left, anchor_x="left", anchor_y="top", align_x=0, align_y=0)
         anchor.add(child=self.settings_button, anchor_x="right", anchor_y="top", align_x=0, align_y=0)
         self.manager.add(anchor)
+
+        # Pete Sprite
+        self.pete_list = arcade.SpriteList()
+        self.pete = arcade.Sprite(get_asset_path(get_asset_path("pete-neutral.png")), scale=1.0)
+        self.pete.center_x = self.window.width//2 
+        self.pete.bottom = 40
+        self.pete_list.append(self.pete)
+        self.movement_speed = 5
+        
+        
+
+
 
     def on_click_settings(self, event):
         print("settings opened")
@@ -81,8 +91,28 @@ class GameView(arcade.View):
             self.background,
             rect=arcade.LBWH(0, 0, self.window.width, self.window.height)
         )
-
+        self.pete_list.draw()
         self.manager.draw()
+
+    def on_update(self, delta):
+        self.pete_list.update()
+    
+    #Movement Bounds
+        if self.pete.left <0:
+            self.pete.left = 0
+        if self.pete.right > self.window.width:
+            self.pete.right = self.window.width
+    
+
+    def on_key_press(self, key):
+        if key == arcade.key.LEFT or arcade.key.A:
+            self.pete.change_x = -self.movement_speed
+        elif key == arcade.key.RIGHT or key == arcade.key.D:
+            self.pete.change_x = self.movement_speed
+    
+    def on_key_release(self, key):
+        if key in (arcade.key.LEFT, arcade.key.A, arcade.key.RIGHT, arcade.key.D):
+            self.pete.change_x = 0
 
 
 class MainMenuUI(arcade.View):
