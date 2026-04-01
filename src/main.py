@@ -26,8 +26,8 @@ class GameView(arcade.View):
         self.croissant_count = 0
 
         croissant_texture = arcade.load_texture(get_asset_path("croissant.png"))
-        settings_icon = arcade.load_texture("settings_icon.png")
-        settings_icon_dark = arcade.load_texture("settings_icon_dark")
+        settings_icon = arcade.load_texture(get_asset_path("settings_icon.png"))
+        settings_icon_dark = arcade.load_texture(get_asset_path("settings_icon_dark.png"))
 
         self.croissant_icon = agui.UIImage(texture=croissant_texture, width=64, height=64)
 
