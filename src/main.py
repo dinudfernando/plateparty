@@ -122,8 +122,8 @@ class MainMenuUI(arcade.View):
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
+        
         self.manager = agui.UIManager()
-            #Background
         self.background = arcade.load_texture(get_asset_path("menu_bg.png"))
     
     def on_show_view(self):
