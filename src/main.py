@@ -45,8 +45,19 @@ class GameView(arcade.View):
         self.settings_button = agui.UITextureButton(
             texture=settings_icon,
             texture_hovered=settings_icon_dark,
-            
+            width=64,
+            height=64
         )
+
+        self.settings_button.on_click = self.on_click_settings
+
+    def on_click_settings(self, event):
+        print("settings opened")
+
+    def close_settings():
+        print("settings closed")
+
+
     def on_show_view(self):
         '''Runs upon showing this view'''
         arcade.set_background_color(arcade.color.DARK_BLUE_GRAY)
