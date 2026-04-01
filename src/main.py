@@ -79,7 +79,7 @@ class MainMenuUI(arcade.View):
         quit_button = agui.UIFlatButton(text="Quit", width=175, height= 30, style=self.menu_button_styling)
        
         # Menu Button Methods
-
+        
 
 
         self.v_box.add(game_logo.with_padding(bottom=30))
