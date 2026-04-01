@@ -28,14 +28,14 @@ class MainMenuUI(arcade.View):
             font_size=15,
             font_name="Press Start 2P",
             font_color= arcade.color.WHITE,
-            bg=arcade.color.BLUE_GRAY,
+            bg=arcade.color.GRAY_BLUE,
 
         ),
         "hover": agui.UIFlatButton.UIStyle(
             font_size=15,
             font_name="Press Start 2P",
             font_color= arcade.color.WHITE,
-            bg=arcade.color.DARK_BLUE_GRAY,
+            bg=arcade.color.BLUE_GRAY,
         ),
         "press": agui.UIFlatButton.UIStyle(
             font_size=15,
@@ -73,10 +73,10 @@ class MainMenuUI(arcade.View):
         game_logo = agui.UIImage(texture=game_logo_texture, width=150, height=140)
 
         # Menu Buttons
-        play_button = agui.UIFlatButton(text="Play", width=150, height=30, style=self.menu_button_styling)
-        settings_button = agui.UIFlatButton(text="Settings", width=100, height=30, style=self.menu_button_styling)
-        credits_button = agui.UIFlatButton(text="Credits", width=100, height=30, style=self.menu_button_styling)
-        quit_button = agui.UIFlatButton(text="Quit", width=100, height= 30, style=self.menu_button_styling)
+        play_button = agui.UIFlatButton(text="Play", width=175, height=30, style=self.menu_button_styling)
+        settings_button = agui.UIFlatButton(text="Settings", width=175, height=30, style=self.menu_button_styling)
+        credits_button = agui.UIFlatButton(text="Credits", width=175, height=30, style=self.menu_button_styling)
+        quit_button = agui.UIFlatButton(text="Quit", width=175, height= 30, style=self.menu_button_styling)
        
         # Menu Button Methods
 
