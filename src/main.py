@@ -30,8 +30,19 @@ class GameView(arcade.View):
         settings_icon_dark = arcade.load_texture("settings_icon_dark")
 
         self.croissant_icon = agui.UIImage(texture=croissant_texture, width=64, height=64)
-        
-    
+
+        self.croissant_label = agui.UILabel(
+            text=f"X {self.croissant_count}",
+            font_size=18,
+            font_name="Press Start 2P",
+            text_color=arcade.color.WHITE
+        )
+
+        layout_left = agui.UIBoxLayout(vertical=False, space_between=8)
+        layout_left.add(self.croissant_icon)
+        layout_left.add(self.croissant_label)
+
+        self.settings_button.on
     def on_show_view(self):
         '''Runs upon showing this view'''
         arcade.set_background_color(arcade.color.DARK_BLUE_GRAY)
