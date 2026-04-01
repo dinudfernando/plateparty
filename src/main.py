@@ -70,7 +70,7 @@ class MainMenuUI(arcade.View):
 
         #Game Logo
         game_logo_texture = arcade.load_texture(get_asset_path("plate_party_logo.png"))
-        game_logo = agui.UIImage(texture=game_logo_texture, width=150, height=140)
+        game_logo = agui.UIImage(texture=game_logo_texture, width=330, height=300)
 
         # Menu Buttons
         play_button = agui.UIFlatButton(text="Play", width=175, height=30, style=self.menu_button_styling)
