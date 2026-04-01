@@ -104,18 +104,10 @@ class MainMenuUI(arcade.View):
 
         # Menu Buttons
         play_button = agui.UIFlatButton(text="Play", width=175, height=30, style=self.menu_button_styling)
+        
         settings_button = agui.UIFlatButton(text="Settings", width=175, height=30, style=self.menu_button_styling)
         credits_button = agui.UIFlatButton(text="Credits", width=175, height=30, style=self.menu_button_styling)
-        quit_button = agui.UIFlatButton(text="Quit", width=175, height= 30, style=self.menu_button_styling)
-       
-        # Menu Button Methods
-        @play_button.event("onclick")
-
-        def on_click_play(e):
-            game_view = GameView()
-            self.window.show_view(game_view)
-
-        
+        quit_button = agui.UIFlatButton(text="Quit", width=175, height= 30, style=self.menu_button_styling) 
 
 
         self.v_box.add(game_logo.with_padding(bottom=30))
@@ -132,7 +124,11 @@ class MainMenuUI(arcade.View):
             )
         self.manager.add(anchor)
 
+        # Menu Button Methods
 
+    def on_click_play(self, event):
+        game_view = GameView()
+        self.window.show_view(game_view)
 
     def on_show_view(self):
         '''Runs upon showing this view'''
