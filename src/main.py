@@ -25,6 +25,7 @@ class GameView(arcade.View):
 
         self.manager = agui.UIManager()
         self.background = arcade.load_texture(get_asset_path("bg.png"))
+        self.paused = False
 
         #Cracked & Stacked Plates
         self.cracked_plate_list = arcade.SpriteList()
@@ -97,7 +98,7 @@ class GameView(arcade.View):
 
 
     def on_click_settings(self, event):
-        print("settings opened")
+        self.paused = not self.paused
 
     def close_settings(self, event):
         print("settings closed")
@@ -158,8 +159,14 @@ class GameView(arcade.View):
                 anchor_x="center"
             )
 
+        if self.paused:
+            arcade.draw_lrbt_rectangle_filled(
+                0, self.window.width, 0, self.height, (0,0,0,160)
+            )
+            
+
     def on_update(self, delta):
-        if self.game_over:
+        if self.game_over or self.paused:
             return
 
         #Weather Pick
