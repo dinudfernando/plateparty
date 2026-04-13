@@ -39,6 +39,10 @@ class GameView(arcade.View):
             text_color=arcade.color.WHITE
         )
 
+        #Cracked Plates
+        self.cracked_plate_list = arcade.SpriteList()
+        self.caught_plates = 0
+
         # Icon & Label to a layout
         layout_left = agui.UIBoxLayout(vertical=False, space_between=8)
         layout_left.add(self.croissant_icon)
@@ -51,6 +55,7 @@ class GameView(arcade.View):
             height=64
         )
         self.settings_button.on_click = self.on_click_settings
+
 
         # Anchoring to UI Manager
         anchor = agui.UIAnchorLayout()
@@ -95,6 +100,7 @@ class GameView(arcade.View):
             self.background,
             rect=arcade.LBWH(0, 0, self.window.width, self.window.height)
         )
+        self.cracked_plate_list.draw()
         self.pete_list.draw()
         self.plate_list.draw()
         self.manager.draw()
