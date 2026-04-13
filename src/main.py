@@ -163,7 +163,14 @@ class GameView(arcade.View):
             arcade.draw_lrbt_rectangle_filled(
                 0, self.window.width, 0, self.height, (0,0,0,160)
             )
-            
+            arcade.draw_text(
+                "PAUSED",
+                self.window.width/2,
+                self.window.height/2,
+                arcade.color.WHITE,
+                32,
+                anchor_x="center"
+            )
 
     def on_update(self, delta):
         if self.game_over or self.paused:
