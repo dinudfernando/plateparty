@@ -161,7 +161,7 @@ class GameView(arcade.View):
             return
         
         self.weather_timer += delta
-        if self.weather_timer > random.uniform(8,12):
+        if self.weather_timer > random.uniform(0,12):
             self.weather_timer = 0
             self.weather = random.choice(["clear", "breezy", "storm", "gust"])
 
@@ -171,6 +171,7 @@ class GameView(arcade.View):
 
         hit_list = arcade.check_for_collision_with_list(self.pete, self.plate_list)
         wind_strength = min(0.4 + self.caught_plates * 0.03, 1.2)
+        self.next_weather_change = random.uniform(8,12)
 
         self.wind_timer += delta
         if self.wind_timer > 2:
