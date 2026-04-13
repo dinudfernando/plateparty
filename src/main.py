@@ -176,8 +176,8 @@ class GameView(arcade.View):
         if self.wind_timer > self.next_weather_change:
             self.wind_timer = 0
             self.next_weather_change = random.uniform(8,12)
+            self.weather = random.choice([])
 
-            self.weather
             if self.weather == "gust":
                 wind_strength = 1
 
