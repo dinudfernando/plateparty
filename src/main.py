@@ -160,19 +160,24 @@ class GameView(arcade.View):
         if self.game_over:
             return
 
+        #Weather Pick
         self.weather_timer += delta
         if self.weather_timer >= random.uniform(0,12):
             self.weather_timer = 0
             self.next_weather_change = random.uniform(8,12)
             self.weather = random.choice(["clear", "breezy", "storm", "gust"])
 
-        
+        # Random Gust
+        if self.weather == "gust":
+            self.stack_velocity += random.choice([-1.5,1.5])
+    
         self.pete_list.update()
         self.plate_list.update()
 
         hit_list = arcade.check_for_collision_with_list(self.pete, self.plate_list)
         wind_strength = min(0.4 + self.caught_plates * 0.03, 1.2)
 
+        # Weather Type Settings
         self.wind_timer += delta
         if self.wind_timer > self.next_weather_change:
             self.wind_timer = 0
@@ -186,8 +191,7 @@ class GameView(arcade.View):
             else:
                 wind_strength = 1
 
-            if self.weather == "gust":
-                self.stack_velocity
+
 
             self.wind_force = random.uniform(-wind_strength, wind_strength)
         
