@@ -19,7 +19,7 @@ def get_asset_path(filename: str) -> str:
     return os.path.join(GAME_PATH, "assets", filename)
 
 class GameView(arcade.View):
-    
+    '''View where the game takes place'''
     def __init__(self):
         super().__init__()
 
