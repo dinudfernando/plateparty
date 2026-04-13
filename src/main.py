@@ -126,16 +126,14 @@ class GameView(arcade.View):
 
     def on_key_press(self, key, modifiers):
         #Key Movement
-        if key == arcade.key.LEFT or key == arcade.key.A:
+        if key in (arcade.key.LEFT, arcade.key.A):
             self.pete.change_x = -1*(self.movement_speed)
-        elif key == arcade.key.RIGHT or key == arcade.key.D:
+        elif key in (arcade.key.RIGHT, arcade.key.D):
             self.pete.change_x = self.movement_speed
     
     def on_key_release(self, key, modifiers):
         #To make sure sprite stops
-        if key in (arcade.key.LEFT, arcade.key.A):
-            self.pete.change_x = 0
-        elif key in (arcade.key.RIGHT, arcade.key.D):
+        if key in (arcade.key.LEFT, arcade.key.A, arcade.key.RIGHT, arcade.key.D):
             self.pete.change_x = 0
 
     #Plate Mechanics
