@@ -47,6 +47,8 @@ class GameView(arcade.View):
 
         self.weather = "clear"
         self.weather_timer = 0
+        self.next_weather_change = random.uniform(8,12)
+
 
         #Textures: Croissant & Settings icons
         croissant_texture = arcade.load_texture(get_asset_path("croissant.png"))
@@ -162,7 +164,7 @@ class GameView(arcade.View):
 
         #Weather Pick
         self.weather_timer += delta
-        if self.weather_timer >= random.uniform(0,12):
+        if self.weather_timer >= self.next_weather_change:
             self.weather_timer = 0
             self.next_weather_change = random.uniform(8,12)
             self.weather = random.choice(["clear", "breezy", "storm", "gust"])
