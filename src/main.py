@@ -177,15 +177,7 @@ class GameView(arcade.View):
         if self.wind_timer > self.next_weather_change:
             self.wind_timer = 0
 
-            if self.weather == "clear":
-                wind_strength = 0.15 + min(self.caught_plates * 0.01, 0.15)
-            elif self.weather == "breezy":
-                wind_strength = 0.15 + min(self.caught_plates * 0.02, 0.25)
-            elif self.weather == "storm":
-                wind_strength = 0.15 + min(self.caught_plates * 0.03, 0.35)
-            else:
-                wind_strength = 1
-
+            self.weather
             if self.weather == "gust":
                 wind_strength = 1
 
