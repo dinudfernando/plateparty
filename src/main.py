@@ -255,13 +255,13 @@ class GameView(arcade.View):
         from_left_side = random.choice([True,False])
         if from_left_side:
             plate.center_x = -50
-            plate.change_x = self.plate_speed_x
+            plate.change_x = self.plate_speed_x + speed_bonus
         else:
             plate.center_x = self.window.width + 50
-            plate.change_x = -self.plate_speed_x
+            plate.change_x = -(self.plate_speed_x + speed_bonus)
         
         plate.center_y = self.window.height - 120
-        plate.change_y = self.plate_speed_y
+        plate.change_y = self.plate_speed_y - vertical_bonus
         
         self.plate_list.append(plate)
 
