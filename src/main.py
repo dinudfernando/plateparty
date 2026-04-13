@@ -187,7 +187,7 @@ class GameView(arcade.View):
                 wind_strength = 1
 
             if self.weather == "gust":
-                wind_strength = 1
+                self.stack_velocity
 
             self.wind_force = random.uniform(-wind_strength, wind_strength)
         
