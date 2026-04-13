@@ -101,8 +101,8 @@ class GameView(arcade.View):
             rect=arcade.LBWH(0, 0, self.window.width, self.window.height)
         )
         self.cracked_plate_list.draw()
-        self.pete_list.draw()
         self.plate_list.draw()
+        self.pete_list.draw()
         self.manager.draw()
 
     def on_update(self, delta):
