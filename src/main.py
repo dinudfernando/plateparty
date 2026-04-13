@@ -108,6 +108,12 @@ class GameView(arcade.View):
     def on_update(self, delta):
         self.pete_list.update()
         self.plate_list.update()
+
+        hit_list = arcade.check_for_collision_with_list(self.pete, self.plate_list)
+
+        for plate in hit_list:
+            plate.remove_from_sprite_lists()
+            self.caught_plates += 1
     
         if len(self.plate_list) == 0:
             self.spawn_plate()
