@@ -148,7 +148,7 @@ class GameView(arcade.View):
             plate.change_x = self.plate_speed_x
         else:
             plate.center_x = self.window.width + 50
-            plate.center_x = -self.plate_speed_x
+            plate.change_x = -self.plate_speed_x
         
         plate.center_y = self.window.height - 120
         plate.change_y = self.plate_speed_y
