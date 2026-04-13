@@ -160,6 +160,11 @@ class GameView(arcade.View):
         if self.game_over:
             return
         
+        self.weather_timer += delta
+        if self.weather_timer > random.uniform(0,12):
+            self.weather_timer = 0
+            self.weather = random.choice(["clear", "breezy", "storm", "gust"])
+
         
         self.pete_list.update()
         self.plate_list.update()
@@ -170,6 +175,9 @@ class GameView(arcade.View):
         self.wind_timer += delta
         if self.wind_timer > 2:
             self.wind_timer = 0
+
+            if self.weather == "clear":
+                wind_strength = 0.15
             wind_strength = min(0.4 + self.caught_plates * 0.03, 1.2)
             self.wind_force = random.uniform(-wind_strength, wind_strength)
         
