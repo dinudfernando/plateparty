@@ -124,13 +124,13 @@ class GameView(arcade.View):
         self.manager.draw()
 
         balance_ratio = min(abs(self.stack_offset)/ self.balance_limit, 1)
-
-        arcade.draw_lrbt_rectangle_filled(40, 240, 80, 60, arcade.color.DARK_BLUE_GRAY)
+        
+        arcade.draw_lrbt_rectangle_filled(40, 240, 60, 80, arcade.color.DARK_BLUE_GRAY)
         arcade.draw_lrbt_rectangle_filled(
             40,
             40 + (200 * balance_ratio),
-            80,
             60,
+            80,
             arcade.color.RED_ORANGE
         )
         arcade.draw_text("BALANCE", 40, 90, arcade.color.WHITE, 14)
