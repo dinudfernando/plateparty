@@ -159,6 +159,8 @@ class GameView(arcade.View):
         self.plate_list.update()
 
         hit_list = arcade.check_for_collision_with_list(self.pete, self.plate_list)
+        wind_strength = min(0.4 + self.caught_plates * 0.03, 1.2)
+        self.wind_force = random.uniform(-wind_strength, wind_strength)
 
         self.wind_timer += delta
         if self.wind_timer > 2:
@@ -249,7 +251,7 @@ class GameView(arcade.View):
         vertical_bonus = min(self.caught_plates * 0.1, 2)
 
         plate = arcade.Sprite(get_asset_path("plate.png"), scale=0.2)
-        
+
         from_left_side = random.choice([True,False])
         if from_left_side:
             plate.center_x = -50
