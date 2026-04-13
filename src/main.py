@@ -120,8 +120,12 @@ class GameView(arcade.View):
         
         # Movement Bounds for Plates
         for plate in self.plate_list:
-            if plate.right <0 or plate.left > self.window.width or plate.bottom < 0:
+            if plate.bottom <= self.ground_y:
+                x = plate.center_x
                 plate.remove_from_sprite_lists()
+
+            cracked = arcade.Sprite(get_asset_path("cracked_plate.png"), scale=0.2)
+            cracked.center_x
         
         #Movement Bounds for Pete
         if self.pete.left <0:
