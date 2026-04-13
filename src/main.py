@@ -43,6 +43,11 @@ class GameView(arcade.View):
         self.spawn_timer = 0
         self.spawn_delay = 1.0
 
+        # Weather
+
+        self.weather = "clear"
+        self.weather_timer = 0
+
         #Textures: Croissant & Settings icons
         croissant_texture = arcade.load_texture(get_asset_path("croissant.png"))
         settings_icon = arcade.load_texture(get_asset_path("settings_icon.png"))
@@ -130,7 +135,8 @@ class GameView(arcade.View):
         )
         arcade.draw_text("BALANCE", 40, 90, arcade.color.WHITE, 14)
         arcade.draw_text(f"WIND: {self.wind_force:.2f}", 40, 35, arcade.color.WHITE, 14)
-
+        arcade.draw_text(f"WEATHER: {self.weather.upper()}", 40, 15, arcade.color.WHITE, 14)
+        
         if self.game_over:
             arcade.draw_text(
                 "GAME OVER",
