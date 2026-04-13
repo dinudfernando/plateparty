@@ -160,12 +160,12 @@ class GameView(arcade.View):
 
         hit_list = arcade.check_for_collision_with_list(self.pete, self.plate_list)
         wind_strength = min(0.4 + self.caught_plates * 0.03, 1.2)
-        self.wind_force = random.uniform(-wind_strength, wind_strength)
 
         self.wind_timer += delta
         if self.wind_timer > 2:
             self.wind_timer = 0
-            self.wind_force = random.uniform(-0.4, 0.4)
+            wind_strength = min(0.4 + self.caught_plates * 0.03, 1.2)
+            self.wind_force = random.uniform(-wind_strength, wind_strength)
         
         self.stack_velocity += self.wind_force
          
