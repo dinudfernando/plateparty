@@ -118,6 +118,19 @@ class GameView(arcade.View):
         self.stacked_plate_list.draw()
         self.manager.draw()
 
+        balance_ratio = min(abs(self.stack_offset)/ self.balance_limit, 1)
+
+        arcade.draw_lrbt_rectangle_filled(40, 240, 80, 60, arcade.color.DARK_BLUE_GRAY)
+        arcade.draw_lrbt_rectangle_filled(
+            40,
+            40 + (200 * balance_ratio),
+            80,
+            60,
+            arcade.color.RED_ORANGE
+        )
+        arcade.draw_text("BALANCE", 40, 90, arcade.color.WHITE, 14)
+        arcade.draw_text(f"WIND: {self.wind_force:.2f}", 40, 35, arcade.color.WHITE, 14)
+        
         if self.game_over:
             arcade.draw_text(
                 "GAME OVER",
