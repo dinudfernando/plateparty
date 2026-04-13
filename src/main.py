@@ -25,7 +25,20 @@ class GameView(arcade.View):
 
         self.manager = agui.UIManager()
         self.background = arcade.load_texture(get_asset_path("bg.png"))
-        self.croissant_count = 0
+
+        #Cracked & Stacked Plates
+        self.cracked_plate_list = arcade.SpriteList()
+        self.caught_plates = 0
+        self.stacked_plate_list = arcade.SpriteList()
+
+        # Physics and Wind Variables
+        self.stack_offset = 0
+        self.stack_velocity = 0
+        self.balance_limit = 60
+        self.game_over = False
+
+        self.wind_force = 0
+        self.wind_timer = 0
 
         #Textures: Croissant & Settings icons
         croissant_texture = arcade.load_texture(get_asset_path("croissant.png"))
@@ -33,15 +46,11 @@ class GameView(arcade.View):
         settings_icon_dark = arcade.load_texture(get_asset_path("settings_icon_dark.png"))
         self.croissant_icon = agui.UIImage(texture=croissant_texture, width=64, height=64)
         self.croissant_label = agui.UILabel(
-            text=f"X {self.croissant_count}",
+            text=f"X {self.caught_plates}",
             font_size=18,
             font_name="Press Start 2P",
             text_color=arcade.color.WHITE
         )
-
-        #Cracked Plates
-        self.cracked_plate_list = arcade.SpriteList()
-        self.caught_plates = 0
 
         # Icon & Label to a layout
         layout_left = agui.UIBoxLayout(vertical=False, space_between=8)
@@ -103,9 +112,33 @@ class GameView(arcade.View):
         self.cracked_plate_list.draw()
         self.plate_list.draw()
         self.pete_list.draw()
+        self.stacked_plate_list.draw()
         self.manager.draw()
 
+        if self.game_over:
+            arcade.draw_text(
+                "GAME OVER",
+                self.window.width/2,
+                self.window.height/2,
+                arcade.color.WHITE,
+                32,
+                anchor_x="center"
+            )
+
+            arcade.draw_text(
+                "Press R to restart",
+                self.window.width/2,
+                self.window.height/2 - 40,
+                arcade.color.WHITE,
+                18,
+                anchor_x="center"
+            )
+
     def on_update(self, delta):
+        if self.game_over:
+            return
+        
+        
         self.pete_list.update()
         self.plate_list.update()
 
@@ -114,29 +147,60 @@ class GameView(arcade.View):
         for plate in hit_list:
             plate.remove_from_sprite_lists()
             self.caught_plates += 1
-    
+            self.croissant_label.text = f"X {self.caught_plates}"
+
+            stacked_plate = arcade.Sprite(get_asset_path("plate.png"), scale=0.2)
+            self.stacked_plate_list.append(stacked_plate)
+
         if len(self.plate_list) == 0:
             self.spawn_plate()
         
+        if len(self.cracked_plate_list) > 10:
+            self.cracked_plate_list.pop(0)
+
         # Movement Bounds for Plates
         for plate in self.plate_list:
             if plate.bottom <= self.ground_y:
                 x = plate.center_x
                 plate.remove_from_sprite_lists()
 
-            cracked = arcade.Sprite(get_asset_path("cracked_plate.png"), scale=0.2)
-            cracked.center_x = x
-            cracked.bottom = self.ground_y
-            self.cracked_plate_list.append(cracked)
-        
+                cracked = arcade.Sprite(get_asset_path("cracked_plate.png"), scale=0.2)
+                cracked.center_x = x
+                cracked.bottom = self.ground_y
+                self.cracked_plate_list.append(cracked)
+            
         #Movement Bounds for Pete
         if self.pete.left <0:
             self.pete.left = 0
         if self.pete.right > self.window.width:
             self.pete.right = self.window.width
-    
+
+        if self.pete.change_x != 0:
+            self.stack_velocity += self.pete.change_x * 0.015 * max(1,len(self.stacked_plate_list))
+
+        # Plate stacl physics        
+        self.stack_velocity *= 0.9
+        self.stack_offset += self.stack_velocity
+        self.stack_offset *= 0.96
+
+        for i, plate in enumerate(self.stacked_plate_list):
+            lean_factor = (i + 1) / max(1, len(self.stacked_plate_list))
+            plate.center_x = self.pete.center_x + self.stack_offset * lean_factor
+            plate.bottom = self.pete.top + 6 + (i*10)
+
+        if abs(self.stack_offset) > self.balance_limit:
+            self.game_over = True
+            self.pete.change_x = 0
+            self.spill_stack()
+        
+
+
+
 
     def on_key_press(self, key, modifiers):
+        if self.game_over and key == arcade.key.R:
+            self.window.show_view(GameView())
+            return
         #Key Movement
         if key in (arcade.key.LEFT, arcade.key.A):
             self.pete.change_x = -1*(self.movement_speed)
@@ -167,6 +231,14 @@ class GameView(arcade.View):
         
         self.plate_list.append(plate)
 
+    def spill_stack(self):
+        for plate in self.stacked_plate_list:
+                cracked = arcade.Sprite(get_asset_path("cracked_plate.png"), scale=0.2)
+                cracked.center_x = plate.center_x
+                cracked.bottom = self.ground_y
+                self.cracked_plate_list.append(cracked)
+
+        self.stacked_plate_list.clear()
 
 
 class MainMenuUI(arcade.View):
