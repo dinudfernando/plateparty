@@ -177,8 +177,14 @@ class GameView(arcade.View):
             self.wind_timer = 0
 
             if self.weather == "clear":
-                wind_strength = 0.15
-            wind_strength = min(0.4 + self.caught_plates * 0.03, 1.2)
+                wind_strength = 0.15 + min(self.caught_plates * 0.01, 0.15)
+            elif self.weather == "breezy":
+                wind_strength = 0.15 + min(self.caught_plates * 0.02, 0.25)
+            elif self.weather == "storm":
+                wind_strength = 0.15 + min(self.caught_plates * 0.03, 0.35)
+            else:
+                wind_strength = 1
+
             self.wind_force = random.uniform(-wind_strength, wind_strength)
         
         self.stack_velocity += self.wind_force
