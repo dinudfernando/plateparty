@@ -161,7 +161,7 @@ class GameView(arcade.View):
             return
         
         self.weather_timer += delta
-        if self.weather_timer > random.uniform(0,12):
+        if self.weather_timer > random.uniform(8,12):
             self.weather_timer = 0
             self.weather = random.choice(["clear", "breezy", "storm", "gust"])
 
