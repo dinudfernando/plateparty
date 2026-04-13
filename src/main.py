@@ -159,10 +159,11 @@ class GameView(arcade.View):
     def on_update(self, delta):
         if self.game_over:
             return
-        
+
         self.weather_timer += delta
-        if self.weather_timer > random.uniform(0,12):
+        if self.weather_timer >= random.uniform(0,12):
             self.weather_timer = 0
+            self.next_weather_change = random.uniform(8,12)
             self.weather = random.choice(["clear", "breezy", "storm", "gust"])
 
         
@@ -175,8 +176,15 @@ class GameView(arcade.View):
         self.wind_timer += delta
         if self.wind_timer > self.next_weather_change:
             self.wind_timer = 0
-            self.next_weather_change = random.uniform(8,12)
-            self.weather = random.choice([])
+
+            if self.weather == "clear":
+                wind_strength = 0.15 + min(self.caught_plates * 0.01, 0.15)
+            elif self.weather == "breezy":
+                wind_strength = 0.15 + min(self.caught_plates * 0.02, 0.25)
+            elif self.weather == "storm":
+                wind_strength = 0.15 + min(self.caught_plates * 0.03, 0.35)
+            else:
+                wind_strength = 1
 
             if self.weather == "gust":
                 wind_strength = 1
