@@ -125,7 +125,9 @@ class GameView(arcade.View):
                 plate.remove_from_sprite_lists()
 
             cracked = arcade.Sprite(get_asset_path("cracked_plate.png"), scale=0.2)
-            cracked.center_x
+            cracked.center_x = x
+            cracked.bottom = self.ground_y
+            self.cracked_plate_list.append(cracked)
         
         #Movement Bounds for Pete
         if self.pete.left <0:
