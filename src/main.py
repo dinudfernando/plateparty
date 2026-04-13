@@ -71,6 +71,7 @@ class GameView(arcade.View):
         self.pause_button = agui.UITextureButton(
             texture=pause_icon,
             texture_hovered=pause_icon_dark,
+            texture_pressed=pause_icon_dark,
             width=64,
             height=64
         )
