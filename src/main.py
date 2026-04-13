@@ -40,6 +40,9 @@ class GameView(arcade.View):
         self.wind_force = 0
         self.wind_timer = 0
 
+        self.spawn_timer = 0
+        self.spawn_delay = 1.0
+
         #Textures: Croissant & Settings icons
         croissant_texture = arcade.load_texture(get_asset_path("croissant.png"))
         settings_icon = arcade.load_texture(get_asset_path("settings_icon.png"))
@@ -160,7 +163,12 @@ class GameView(arcade.View):
             self.stacked_plate_list.append(stacked_plate)
 
         if len(self.plate_list) == 0:
-            self.spawn_plate()
+            self.spawn_timer += delta
+            if self.spawn_timer >= self.spawn_delay:
+                self.spawn_plate()
+                self.spawn_timer = 0
+        else:
+            self.spawn_timer = 0
         
         if len(self.cracked_plate_list) > 10:
             self.cracked_plate_list.pop(0)
