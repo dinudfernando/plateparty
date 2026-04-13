@@ -144,6 +144,13 @@ class GameView(arcade.View):
 
         hit_list = arcade.check_for_collision_with_list(self.pete, self.plate_list)
 
+        self.wind_timer += delta
+        if self.wind_timer > 2:
+            self.wind_timer = 0
+            self.wind_force = random.uniform(-0.4, 0.4)
+        
+        self.stack_velocity += self.wind_force
+         
         for plate in hit_list:
             plate.remove_from_sprite_lists()
             self.caught_plates += 1
