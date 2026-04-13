@@ -130,7 +130,7 @@ class GameView(arcade.View):
         )
         arcade.draw_text("BALANCE", 40, 90, arcade.color.WHITE, 14)
         arcade.draw_text(f"WIND: {self.wind_force:.2f}", 40, 35, arcade.color.WHITE, 14)
-        
+
         if self.game_over:
             arcade.draw_text(
                 "GAME OVER",
@@ -245,7 +245,11 @@ class GameView(arcade.View):
         if len(self.plate_list) > 0:
             return
         
+        speed_bonus = min(self.caught_plates * 0.2, 4)
+        vertical_bonus = min(self.caught_plates * 0.1, 2)
+
         plate = arcade.Sprite(get_asset_path("plate.png"), scale=0.2)
+        
         from_left_side = random.choice([True,False])
         if from_left_side:
             plate.center_x = -50
