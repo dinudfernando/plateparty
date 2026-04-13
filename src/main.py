@@ -51,10 +51,10 @@ class GameView(arcade.View):
         self.next_weather_change = random.uniform(8,12)
 
 
-        #Textures: Croissant & Settings icons
+        #Textures: Croissant & pause icons
         croissant_texture = arcade.load_texture(get_asset_path("croissant.png"))
-        settings_icon = arcade.load_texture(get_asset_path("settings_icon.png"))
-        settings_icon_dark = arcade.load_texture(get_asset_path("settings_icon_dark.png"))
+        pause_icon = arcade.load_texture(get_asset_path("pause_icon.png"))
+        pause_icon_dark = arcade.load_texture(get_asset_path("pause_icon_dark.png"))
         self.croissant_icon = agui.UIImage(texture=croissant_texture, width=64, height=64)
         self.croissant_label = agui.UILabel(
             text=f"X {self.caught_plates}",
@@ -68,19 +68,19 @@ class GameView(arcade.View):
         layout_left.add(self.croissant_icon)
         layout_left.add(self.croissant_label)
 
-        self.settings_button = agui.UITextureButton(
-            texture=settings_icon,
-            texture_hovered=settings_icon_dark,
+        self.pause_button = agui.UITextureButton(
+            texture=pause_icon,
+            texture_hovered=pause_icon_dark,
             width=64,
             height=64
         )
-        self.settings_button.on_click = self.on_click_settings
+        self.pause_button.on_click = self.on_click_pause
 
 
         # Anchoring to UI Manager
         anchor = agui.UIAnchorLayout()
         anchor.add(child=layout_left, anchor_x="left", anchor_y="top", align_x=0, align_y=0)
-        anchor.add(child=self.settings_button, anchor_x="right", anchor_y="top", align_x=0, align_y=0)
+        anchor.add(child=self.pause_button, anchor_x="right", anchor_y="top", align_x=0, align_y=0)
         self.manager.add(anchor)
 
         # Pete Sprite
@@ -97,11 +97,11 @@ class GameView(arcade.View):
         self.plate_speed_x, self.plate_speed_y = 4, -2
 
 
-    def on_click_settings(self, event):
+    def on_click_pause(self, event):
         self.paused = not self.paused
 
-    def close_settings(self, event):
-        print("settings closed")
+    def close_pause(self, event):
+        print("pause closed")
 
 
     def on_show_view(self):
@@ -193,7 +193,7 @@ class GameView(arcade.View):
         hit_list = arcade.check_for_collision_with_list(self.pete, self.plate_list)
         wind_strength = min(0.4 + self.caught_plates * 0.03, 1.2)
 
-        # Weather Type Settings
+        # Weather Type pause
         self.wind_timer += delta
         if self.wind_timer > self.next_weather_change:
             self.wind_timer = 0
@@ -375,7 +375,7 @@ class MainMenuUI(arcade.View):
 
         # Menu Buttons
         play_button = agui.UIFlatButton(text="Play", width=175, height=30, style=self.menu_button_styling)
-        settings_button = agui.UIFlatButton(text="Settings", width=175, height=30, style=self.menu_button_styling)
+        pause_button = agui.UIFlatButton(text="pause", width=175, height=30, style=self.menu_button_styling)
         credits_button = agui.UIFlatButton(text="Credits", width=175, height=30, style=self.menu_button_styling)
         quit_button = agui.UIFlatButton(text="Quit", width=175, height= 30, style=self.menu_button_styling) 
 
@@ -384,7 +384,7 @@ class MainMenuUI(arcade.View):
 
         self.v_box.add(game_logo.with_padding(bottom=30))
         self.v_box.add(play_button)
-        self.v_box.add(settings_button)
+        self.v_box.add(pause_button)
         self.v_box.add(credits_button)
         self.v_box.add(quit_button)
 
