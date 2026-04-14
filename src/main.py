@@ -86,14 +86,32 @@ class GameView(arcade.View):
 
         # Pete Sprite
         self.pete_list = arcade.SpriteList()
-        self.pete = arcade.Sprite(get_asset_path("pete_neutral.png"), scale=0.3)
+        self.pete = arcade.Sprite(get_asset_path("pete_walk1.png"), scale=0.3)
         self.pete.center_x = self.window.width//2 
         self.ground_y = int(self.window.height*0.39)
         self.pete.bottom = self.ground_y
         self.pete_list.append(self.pete)
         self.movement_speed = 5
 
+        self.RIGHT_FACING = 0
+        self.LEFT_FACING = 1
+        self.facing_direction = self.RIGHT_FACING
+        self.current_texture = 0
+        self.updates_per_frame = 8
 
+        def load_texture_pair(filename):
+            return [
+                arcade.load_texture(get_asset_path(filename)),
+                arcade.load_texture(get_asset_path(filename),)
+            ]
+
+        self.walk_textures = [
+            load_texture_pair("pete_walk1.png"),
+            load_texture_pair("pete_walk2.png"),
+            load_texture_pair("pete_walk3.png")
+        ]
+
+        self.pete.texture = self.walk_textures[1][self.RIGHT_FACING]
         self.plate_list = arcade.SpriteList()
         self.plate_speed_x, self.plate_speed_y = 4, -2
 
@@ -162,7 +180,7 @@ class GameView(arcade.View):
 
         if self.paused:
             arcade.draw_lrbt_rectangle_filled(
-                0, self.window.width, 0, self.height, (0,0,0,160)
+                0, self.window.width, 0, self.window.height, (0,0,0,160)
             )
             arcade.draw_text(
                 "PAUSED",
@@ -189,6 +207,7 @@ class GameView(arcade.View):
             self.stack_velocity += random.choice([-1.5,1.5])
     
         self.pete_list.update()
+        self.update_pete_animation()
         self.plate_list.update()
 
         hit_list = arcade.check_for_collision_with_list(self.pete, self.plate_list)
@@ -318,6 +337,23 @@ class GameView(arcade.View):
                 self.cracked_plate_list.append(cracked)
 
         self.stacked_plate_list.clear()
+
+    def update_pete_animation(self):
+        if self.pete.change_x < 0:
+            self.facing_direction = self.LEFT_FACING
+        elif self.pete.change_x > 0:
+            self.facing_direction = self.RIGHT_FACING
+        
+        if self.pete.change_x == 0:
+            self.pete.texture = self.walk_textures[1][self.facing_direction]
+            return
+        
+        self.current_texture += 1
+        if self.current_texture > (len(self.walk_textures) * self.updates_per_frame) - 1:
+            self.current_texture = 0
+
+        frame = self.current_texture // self.updates_per_frame
+        self.pete.texture = self.walk_textures[frame][self.facing_direction]
 
 
 class MainMenuUI(arcade.View):
