@@ -93,28 +93,19 @@ class GameView(arcade.View):
         self.pete_list.append(self.pete)
         self.movement_speed = 5
 
-        self.RIGHT_FACING = 0
-        self.LEFT_FACING = 1
-        self.facing_direction = self.RIGHT_FACING
-        self.current_texture = 0
-        self.updates_per_frame = 8
-
-        def load_texture_pair(filename):
-            return [
-                arcade.load_texture(get_asset_path(filename),),
-                arcade.load_texture(get_asset_path(filename),)
-            ]
-
-        self.walk_textures = [
-            load_texture_pair("pete_walk1.png"),
-            load_texture_pair("pete_walk2.png"),
-            load_texture_pair("pete_walk3.png")
-        ]
-
-        self.pete.texture = self.walk_textures[1][self.RIGHT_FACING]
         self.plate_list = arcade.SpriteList()
         self.plate_speed_x, self.plate_speed_y = 4, -2
 
+        self.current_texture = 0
+        self.updates_per_frame = 8
+        self.walk_textures = [
+            arcade.load_texture(get_asset_path("pete_walk1.png")),
+            arcade.load_texture(get_asset_path("pete_walk2.png")),
+            arcade.load_texture(get_asset_path("pete_walk3.png")),
+        ]
+
+        self.pete.texture = self.walk_textures[1]
+        self.pete.scale = 0.3
 
     def on_click_pause(self, event):
         self.paused = not self.paused
@@ -340,21 +331,19 @@ class GameView(arcade.View):
 
     def update_pete_animation(self):
         if self.pete.change_x < 0:
-            self.facing_direction = self.LEFT_FACING
+            self.pete.scale_x = -0.3
         elif self.pete.change_x > 0:
-            self.facing_direction = self.RIGHT_FACING
-        
+            self.pete.scale_x = 0.3
+
         if self.pete.change_x == 0:
-            self.pete.texture = self.walk_textures[1][self.facing_direction]
-            return
-        
+            self.pete.texture = self.walk_textures[1]
+
         self.current_texture += 1
-        if self.current_texture > (len(self.walk_textures) * self.updates_per_frame) - 1:
+        if self.current_texture >= len(self.walk_textures) * self.updates_per_frame:
             self.current_texture = 0
-
+        
         frame = self.current_texture // self.updates_per_frame
-        self.pete.texture = self.walk_textures[frame][self.facing_direction]
-
+        self.pete.texture = self.walk_textures[frame]
 
 class MainMenuUI(arcade.View):
     '''Main Menu for the game.'''
