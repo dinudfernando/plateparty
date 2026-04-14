@@ -107,6 +107,18 @@ class GameView(arcade.View):
         self.pete.texture = self.walk_textures[1]
         self.pete.scale = 0.3
 
+        self.game_ost = arcade.load_sound(get_asset_path("game_ost.mp3"))
+        self.game_start_sfx = arcade.load_sound(get_asset_path("game_start.mp3"))
+        self.game_over_sfx = arcade.load_sound(get_asset_path("game_over.mp3"))
+        self.running_sfx = arcade.load_sound(get_asset_path("running_sound.mp3"))
+        self.wind_gust_sfx = arcade.load_sound(get_asset_path("wind_gust.mp3"))
+        self.click_sfx = arcade.load_sound(get_asset_path("click_button.mp3"))
+        self.shatter_sfx = arcade.load_sound(get_asset_path("glass_shatter.mp3"))
+        
+
+
+
+
     def on_click_pause(self, event):
         self.paused = not self.paused
 
