@@ -132,9 +132,26 @@ class GameView(arcade.View):
         '''Runs upon showing this view'''
         self.manager.enable()
 
+        arcade.play_sound(self.game_start_sfx, volume=0.6)
+
+        if self.game_music_player is None:
+            self.game_music_player = arcade.play_sound(
+                self.game_ost,
+                volume=0.4,
+                loop=True
+            )
+
     def on_hide_view(self):
         '''Runs upon hiding this view'''
         self.manager.disable()
+
+        if self.game_music_player is not None:
+            arcade.stop_sound(self.game_music_player)
+            self.game_music_player = None
+        
+        if self.running_player is not None:
+            arcade.stop_sound(self.running_player)
+            self.running_player = None
 
     def on_draw(self):
         '''Runs every time the screen is rendered'''
