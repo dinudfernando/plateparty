@@ -114,8 +114,10 @@ class GameView(arcade.View):
         self.wind_gust_sfx = arcade.load_sound(get_asset_path("wind_gust.mp3"))
         self.click_sfx = arcade.load_sound(get_asset_path("click_button.mp3"))
         self.shatter_sfx = arcade.load_sound(get_asset_path("glass_shatter.mp3"))
-        
 
+        self.game_music_player = None
+        self.running_player = None
+        self.game_over_played = False
 
 
 
@@ -434,7 +436,12 @@ class MainMenuUI(arcade.View):
             )
         self.manager.add(anchor)
 
-        # Menu Button Methods
+        # Menu SFX
+        self.menu_ost = arcade.load_sound(get_asset_path("menu_ost.mp3"))
+        self.click_sfx = arcade.load_sound(get_asset_path("click_button.mp3"))
+        self.hover_sfx = arcade.load_sound(get_asset_path("hover_button.mp3"))
+
+        self.menu_music_player = None
 
     def on_click_play(self, event):
         game_view = GameView()
