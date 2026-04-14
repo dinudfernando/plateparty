@@ -101,7 +101,7 @@ class GameView(arcade.View):
 
         def load_texture_pair(filename):
             return [
-                arcade.load_texture(get_asset_path(filename)),
+                arcade.load_texture(get_asset_path(filename),),
                 arcade.load_texture(get_asset_path(filename),)
             ]
 
