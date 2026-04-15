@@ -143,19 +143,6 @@ The project uses custom game assets for:
 5. Avoid losing the stack.
 6. Restart and play again after game over.
 
-## Future Improvements
-
-Possible future updates:
-- Credits screen
-- Better pause menu
-- Score saving
-- Difficulty scaling improvements
-- More weather effects
-- More animations and polish
-- Better sound balancing and transitions
-
-## Troubleshooting
-
 ### Audio issues
 If some audio files do not play correctly on your machine, try converting them to `.wav` files and updating the file names in the code.
 
