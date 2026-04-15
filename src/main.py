@@ -227,7 +227,7 @@ class GameView(arcade.View):
                 arcade.stop_sound(self.running_player)
                 self.running_player = None
 
-        
+
         #Weather Pick
         self.weather_timer += delta
         if self.weather_timer >= self.next_weather_change:
@@ -237,6 +237,7 @@ class GameView(arcade.View):
 
         # Random Gust
         if self.weather == "gust":
+            arcade.play_sound(self.win)
             self.stack_velocity += random.choice([-1.5,1.5])
     
         self.pete_list.update()
