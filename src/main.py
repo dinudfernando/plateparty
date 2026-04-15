@@ -293,7 +293,7 @@ class GameView(arcade.View):
                 x = plate.center_x
                 plate.remove_from_sprite_lists()
 
-                cracked = arcade.Sprite(get_asset_path("cracked_plate.png"), scale=0.2)
+                cracked = arcade.Sprite(get_asset_path("cracked_plate.png"), scale=0.15)
                 cracked.center_x = x
                 cracked.bottom = self.ground_y
                 self.cracked_plate_list.append(cracked)
