@@ -289,6 +289,7 @@ class GameView(arcade.View):
         # Movement Bounds for Plates
         for plate in self.plate_list:
             if plate.bottom <= self.ground_y:
+                arcade.play_sound(self.shatter_sfx, volume=0.55)
                 x = plate.center_x
                 plate.remove_from_sprite_lists()
 
@@ -319,7 +320,18 @@ class GameView(arcade.View):
         if abs(self.stack_offset) > self.balance_limit:
             self.game_over = True
             self.pete.change_x = 0
+
+            if self.running_player is not None:
+                arcade.stop_sound(self.running_player)
+                self.running_player = None
+            
+            if not self.game_over_played:
+                arcade.play_sound(self.game_over_sfx, volume=0.65)
+                self.game_over_played = True
+
+
             self.spill_stack()
+
         
 
 
@@ -364,6 +376,8 @@ class GameView(arcade.View):
         self.plate_list.append(plate)
 
     def spill_stack(self):
+        arcade.play_sound(self.shatter_sfx, volume=0.7)
+
         for plate in self.stacked_plate_list:
                 cracked = arcade.Sprite(get_asset_path("cracked_plate.png"), scale=0.2)
                 cracked.center_x = plate.center_x
@@ -380,11 +394,12 @@ class GameView(arcade.View):
 
         if self.pete.change_x == 0:
             self.pete.texture = self.walk_textures[1]
+            return
 
         self.current_texture += 1
         if self.current_texture >= len(self.walk_textures) * self.updates_per_frame:
             self.current_texture = 0
-        
+
         frame = self.current_texture // self.updates_per_frame
         self.pete.texture = self.walk_textures[frame]
 
