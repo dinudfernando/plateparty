@@ -122,6 +122,7 @@ class GameView(arcade.View):
 
 
     def on_click_pause(self, event):
+        arcade.play_sound(self.click_sfx, volume=0.5)
         self.paused = not self.paused
 
     def close_pause(self, event):
@@ -461,19 +462,32 @@ class MainMenuUI(arcade.View):
         self.menu_music_player = None
 
     def on_click_play(self, event):
+        arcade.play_sound(self.click_sfx, volume=0.5)
         game_view = GameView()
         self.window.show_view(game_view)
 
     def on_click_quit(self, event):
+        arcade.play_sound(self.click_sfx, volume=0.5)
         arcade.exit()
 
     def on_show_view(self):
         '''Runs upon showing this view'''
         self.manager.enable()
 
+        if self.menu_music_player is None:
+            self.menu_music_player = arcade.play_sound(
+                self.menu_ost,
+                volume=0.45,
+                loop=True
+            )
+
     def on_hide_view(self):
         '''Runs upon hiding this view'''
         self.manager.disable()
+
+        if self.menu_music_player is not None:
+            arcade.stop_sound(self.menu_music_player)
+            self.menu_music_player = None
 
     def on_draw(self):
         '''Runs every time the screen is rendered'''
