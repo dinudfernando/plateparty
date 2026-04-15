@@ -237,7 +237,7 @@ class GameView(arcade.View):
 
         # Random Gust
         if self.weather == "gust":
-            arcade.play_sound(self.win)
+            arcade.play_sound(self.wind_gust_sfx, volume=0.45)
             self.stack_velocity += random.choice([-1.5,1.5])
     
         self.pete_list.update()
