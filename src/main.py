@@ -218,6 +218,16 @@ class GameView(arcade.View):
         if self.game_over or self.paused:
             return
 
+        #Running sound
+        if self.pete.change_x != 0:
+            if self.running_player is None:
+                self.running_player = arcade.play_sound(self.running_sfx, volume=0.25, loop=True)
+        else:
+            if self.running_player is not None:
+                arcade.stop_sound(self.running_player)
+                self.running_player = None
+
+        
         #Weather Pick
         self.weather_timer += delta
         if self.weather_timer >= self.next_weather_change:
