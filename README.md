@@ -161,3 +161,8 @@ Developed as a **CS196 University Game Project**.
 ## License
 
 This project is for educational use unless otherwise specified.
+
+## AI Usage
+- Readme File
+- Sprites and Image Assets
+- Plate Balancing Logic Guidance
